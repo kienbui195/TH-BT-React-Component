@@ -13,14 +13,16 @@ const Calculator = () => {
         <strong>{results}</strong>
     )
 
-    const handleChange = (e, field) => {
-        if (field === 'a') {
-            setValue({...value, a:e.target.value});
-        } else {
-            setValue({...value, b:e.target.value});
-        }
+    const handleChange = (e) => {
+        setValue({ ...value,[e.target.name]: e.target.value })
+        
+        // if (field === 'a') {
+        //     setValue({...value, a:e.target.value});
+        // } else {
+        //     setValue({...value, b:e.target.value});
+        // }
     }
-
+    console.log(value);
     const result = (ope) => {
         let res = eval(value.a + ope + value.b);
         setResults(res);
@@ -32,11 +34,11 @@ const Calculator = () => {
             <div className='col-6' style={{backgroundColor: 'green'}}>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">a</label>
-                    <input type="number" name="a" onKeyUp={(e) => handleChange(e,'a')}  className="form-control"/>
+                    <input type="number" name="a" onKeyUp={(e) => handleChange(e)}  className="form-control"/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">b</label>
-                    <input type="number" name="b" onKeyUp={(e) => handleChange(e,'b')}   className="form-control"/>
+                    <input type="number" name="b" onKeyUp={(e) => handleChange(e)}   className="form-control"/>
                 </div>
                 <button className="btn btn-primary" onClick={() => result('+')}>+</button>
                 <button className="btn btn-primary" onClick={() => result('-')}>-</button>
