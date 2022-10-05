@@ -1,67 +1,49 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 
 const Calculator = () => {
+    
+    const [value, setValue] = useState({
+        a: '',
+        b: ''
+    });
 
-    const [a, setA] = useState('');
-    const [b, setB] = useState('');
-    const [results, setResults] = useState('0');
+    let [results, setResults] = useState('');
 
     let html = (
         <strong>{results}</strong>
     )
 
-    const handleChangeA = (e) => {
-        setA(e.target.value);
-    }
-
-    const handleChangeB = (e) => {
-        setB(e.target.value);
-    }
-
-    const cong = () => {
-        let result = parseInt(a) + parseInt(b);
-        setResults(result);
-    }
-
-    const tru = () => {
-        let result = parseInt(a) - parseInt(b);
-        setResults(result);
-    }
-
-    const nhan = () => {
-        let result = parseInt(a) * parseInt(b);
-        setResults(result);
-    }
-
-    const chia = () => {
-        if (parseInt(b) !== 0) {
-            let result = parseInt(a) / parseInt(b);
-        setResults(result);
+    const handleChange = (e, field) => {
+        if (field === 'a') {
+            setValue({...value, a:e.target.value});
         } else {
-            setResults('Error! Chia cho 0!')
+            setValue({...value, b:e.target.value});
         }
-        
+    }
+
+    const result = (ope) => {
+        let res = eval(value.a + ope + value.b);
+        setResults(res);
     }
 
     return (
         <div className="row" style={{backgroundColor: 'gray'}}>
             <div className='col-3'></div>
-            <form className='col-6' style={{backgroundColor: 'green'}}>
+            <div className='col-6' style={{backgroundColor: 'green'}}>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">a</label>
-                    <input type="number" name="a" onKeyUp={(e) => handleChangeA(e)} className="form-control"/>
+                    <input type="number" name="a" onKeyUp={(e) => handleChange(e,'a')}  className="form-control"/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">b</label>
-                    <input type="number" name="b" onKeyUp={(e) => handleChangeB(e)} className="form-control"/>
+                    <input type="number" name="b" onKeyUp={(e) => handleChange(e,'b')}   className="form-control"/>
                 </div>
-                <button className="btn btn-primary" onClick={() => cong()}>+</button>
-                <button className="btn btn-primary" onClick={() => tru()}>-</button>
-                <button className="btn btn-primary" onClick={() => nhan()}>x</button>
-                <button className="btn btn-primary" onClick={() => chia()}>/</button>
+                <button className="btn btn-primary" onClick={() => result('+')}>+</button>
+                <button className="btn btn-primary" onClick={() => result('-')}>-</button>
+                <button className="btn btn-primary" onClick={() => result('*')}>x</button>
+                <button className="btn btn-primary" onClick={() => result('/')}>/</button>
                 <p>Result: {html}</p>
-            </form>
+            </div>
             <div className='col-3'></div>
         </div>
     )
