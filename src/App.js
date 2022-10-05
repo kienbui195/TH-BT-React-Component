@@ -4,6 +4,7 @@ import AddComponentV2 from './components/AddComponentV2';
 import AlertComponent from './components/AlertComponent';
 import Welcome from './components/Welcome';
 import Calculator from './components/Calculator';
+import StudentList from './components/StudentList';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
       <Calculator />
       
       {/*Xây dựng hiển thị danh sách sinh viên*/}
-      
+      <StudentList/>
     </>
   );
 }
